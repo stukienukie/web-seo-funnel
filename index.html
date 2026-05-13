@@ -9,6 +9,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-W6TBQD7Q');</script>
 <!-- End Google Tag Manager -->
 
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wq0d940f5k");
+</script>
+<!-- End Microsoft Clarity -->
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Monox AI — Small Business Growth System</title>
@@ -61,8 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   /* VIDEO */
   .video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 16px; overflow: hidden; cursor: pointer; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 24px 70px rgba(0,0,0,0.7); transition: transform 0.2s ease, box-shadow 0.2s ease; }
   .video-wrap:hover { transform: translateY(-3px); box-shadow: 0 36px 90px rgba(0,0,0,0.85); }
-  .thumb-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; filter: blur(10px); transform: scale(1.05); transition: filter 0.7s ease, transform 0.7s ease; }
-  #videoWrap.unlocked .thumb-img { filter: blur(0); transform: scale(1); }
+  .thumb-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;  }
   .thumb-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.25) 100%); z-index: 1; }
   .play-btn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 2; }
   .play-circle { width: 80px; height: 80px; background: var(--orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: pulse 2.4s ease-out infinite; transition: transform 0.2s ease, background 0.2s ease; }
@@ -354,6 +363,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <input type="tel" id="phone" placeholder="555-222-2222" autocomplete="tel"/>
     </div>
     <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" id="email" placeholder="you@example.com" autocomplete="email"/>
+    </div>
+    <div class="form-group">
       <label>What's your current monthly revenue?</label>
       <div class="radio-group">
         <label class="radio-option"><input type="radio" name="revenue" value="$0 - $5,000"/> <span>$0 – $5,000</span></label>
@@ -416,12 +429,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   function submitForm() {
     var name = document.getElementById('firstName').value.trim();
     var phone = document.getElementById('phone').value.trim();
+    var email = document.getElementById('email').value.trim();
     var revenueEl = document.querySelector('input[name="revenue"]:checked');
     var revenue = revenueEl ? revenueEl.value : '';
 
     var valid = true;
     if (!name)  { shake('firstName'); valid = false; }
-    if (!phone) { shake('phone'); valid = false; }
+    if (!/^\+?[\d\s\-().]{7,}$/.test(phone)) { shake('phone'); valid = false; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { shake('email'); valid = false; }
     if (!revenue) {
       document.querySelector('.radio-group').style.outline = '2px solid #EF4444';
       document.querySelector('.radio-group').style.borderRadius = '8px';
@@ -438,7 +453,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     fetch('https://services.leadconnectorhq.com/hooks/AP4y7ksWcUvVV6XCz7VN/webhook-trigger/f9f51153-8da0-4fd9-a940-d5c236685d0d', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name, phone: '+1' + String(phone).replace(/[^0-9]/g, '').replace(/^1/, ''), revenue: revenue, source: 'small-biz-gate' })
+      body: JSON.stringify({ name: name, phone: '+1' + String(phone).replace(/[^0-9]/g, '').replace(/^1/, ''), email: email, revenue: revenue, source: 'small-biz-gate' })
     })
     .then(function(res) {
       console.log('GHL webhook response:', res.status);
